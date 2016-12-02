@@ -181,3 +181,64 @@ sudo umount tmp-iso
 sudo umount tmp-ext3
 ```
 
+# Create AWS certificate and private key
+* A certificate and key will be required for creating an ec2 bundle in the next step.
+* Instructions can be followed on AWS: http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-up-ami-tools.html?icmpid=docs_iam_console#ami-tools-managing-certs
+  * Create a private key.
+  ```
+  mkdir -p /home/ec2-user/work/secret
+  cd /home/ec2-user/work/secret
+  openssl genrsa 2048 > private-key.pem
+  ```
+
+  * Create a signing certificate
+  ```
+  openssl req -new -x509 -nodes -sha256 -days 365 -key private-key.pem -outform PEM -out certificate.pem
+  ```
+  
+  * Upload signing certificate (2 ways to do this)
+    * You can upload signing certificate via IAM in Amazon Console. You will need to copy the certificate from your machine to another machine which has browser access to the AWS console. You can copy using scp utility.
+    * You can also use AWS command line to upload directly to AWS. Please follow instruction in the URL mentioned earlier in this section.
+
+# Create an AMI
+* Create a directory for storing bundle
+```
+mkdir -p /home/ec2-user/work/ami
+```
+
+* Create bundle
+  * You'll need your AWS account ID. Make sure to update --user flag below.
+  ```
+  ec2-bundle-image \
+  --cert /home/ec2-user/work/secret/certificate.pem \
+  --privatekey /home/ec2-user/work/secret/private-key.pem \
+  --image /home/ec2-user/work/image/android_x86-64.img \
+  --prefix android-x86_64 \
+  --user <Your User Account ID> \
+  --destination /home/ec2-user/work/ami \
+  --arch x86_64 \
+  --kernel aki-fc8f11cc
+  ```
+
+* Upload bundle
+  * You'll need [1] S3 bucket name, [2] Access key, [3] Access Secret, [4] Bucket region to be able to access S3.
+  ```
+  ec2-upload-bundle \
+  --manifest /home/ec2-user/work/ami/android-x86_64.manifest.xml \
+  --bucket <S3 bucket name> \
+  --access-key <Access Key> \
+  --secret-key <Secret Key> \
+  --region <S3 bucket region>
+  ```
+
+* Create AMI
+  * You'll need [1] Access Key, [2] Access Secret to be able to access EC2, [3] S3 bucket name, [4] EC2 Region
+  ```
+  AWS_ACCESS_KEY=<Access Key> AWS_SECRET_KEY=<Secret Key> \
+  ec2-register <S3 bucket name>/android-x86_64.manifest.xml \
+  --name "Android x86-64" \
+  --description "Android x86-64 AMI" \
+  --architecture x86_64 \
+  --region <EC2 Region> \
+  --kernel aki-fc8f11cc
+  ```
