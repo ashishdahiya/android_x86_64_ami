@@ -1,0 +1,52 @@
+#
+# By Chih-Wei Huang <cwhuang@linux.org.tw>
+# Last updated 2016/08/14
+#
+# License: GNU Public License
+# We explicitely grant the right to use the scripts
+# with Android-x86 project.
+#
+
+# An auto detect function provided by kinneko
+auto_detect()
+{
+	tmp=/tmp/dev2mod
+	echo 'dev2mod() { while read dev; do case $dev in' > $tmp
+	sort -r /lib/modules/`uname -r`/modules.alias | \
+		sed -n 's/^alias  *\([^ ]*\)  *\(.*\)/\1)busybox modprobe \2;;/p' >> $tmp
+	echo 'esac; done; }' >> $tmp
+	sed -i '/brcmfmac/d' $tmp
+	source $tmp
+	cat /sys/bus/*/devices/*/uevent | grep MODALIAS | sed 's/^MODALIAS=//' | awk '!seen[$0]++' | dev2mod
+	cat /sys/devices/virtual/wmi/*/modalias | dev2mod
+}
+
+find_network_dev_name()
+{
+        echo "in find network dev name"
+        DHCPCD="/system/bin/dhcpcd -o domain_name_servers"
+  	rmline=`grep -n "#REMOVE FROM HERE" init.rc|cut -d':' -f1`
+  	rmline=`expr $rmline + 1`
+  	sed -i -e "$rmline,\$d" init.rc
+  	for netdev in `ls /sys/class/net`; do
+                echo "net device: $netdev"
+    		if [ "$netdev" != "lo" -a "$netdev" != "wmaster0" ]; then
+      			echo -e "service dhcpcd_$netdev $DHCPCD -ABKL\n   disabled\n   oneshot\n" >> init.rc
+      			echo -e "service iprenew_$netdev $DHCPCD -n\n   disabled\n   oneshot\n" >> init.rc
+    		fi
+  	done
+}
+
+load_modules()
+{
+	if [ "$AUTO_LOAD" = "old" ]; then
+		auto_detect
+	fi
+
+	# 3G modules
+	for m in $EXTMOD; do
+		busybox modprobe $m
+	done
+
+        find_network_dev_name
+}
