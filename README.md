@@ -75,6 +75,35 @@ wget http://www.bouncycastle.org/download/bcprov-ext-jdk15on-155.jar
 2. Download modified 0-auto-detect file from this repository and save it to /home/ec2-user/android/bootable/newinstaller/initrd/scripts/ directory.
    * This file was modified to be able to find network interfaces for the android machine. Otherwise, AWS's instance reachability check will fail for the machine.
 
+# Configure android x86 kernel
+* There are two approaches to do this: [1] use .config file provided in this repository or [2] follow steps to create your own .config file.
+
+1. Before using either of the approaches, create a config directory
+```
+mkdir -p /home/ec2-user/work/.config
+```
+
+2. Easy approach (option #1)
+   * Download .config file from this repository and save it under /home/ec2-user/work/.config/ directory.
+
+3. Harder approach (option #2)
+   * This approach allows you to configure kernel options.
+   * Open kernel configuration manager.
+   ```
+   cd /home/ec2-user/android
+   make -C kernel O=/home/ec2-user/work/.config ARCH=x86_64 menuconfig
+   ```
+   * Configure kernel options using guidelines provided by gentoo. 
+   ```
+   https://wiki.gentoo.org/wiki/Xen#Kernel
+   ```
+   * In addition, set the following kernel option in configuration manager.
+   ```
+   Graphics support  --->
+         Frame buffer Devices  --->
+            <*> VGA 16-color graphics support
+   ```
+
 # Compile android x86
 * Compilation takes about 30-40 minutes.
 ```
