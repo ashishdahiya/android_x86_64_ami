@@ -1,5 +1,5 @@
 # android_x86_64_ami
-Create Amazon AMI for android x86_64
+Create Amazon AMI for android x86_64 marshmallow
 
 # Warning
 This is work in progress. Android operating system boots, however, there are errors that does not allow Android to run as expected. If you have ideas on how to resolve these problems, please chime in.
@@ -16,4 +16,47 @@ Amazon AMI supports two types of virtualization types: [1] HVM, and [2] PV. We w
 4. Storage: use General Purpose SSD (GP2) as your root volume with 100 GB storage. We will need this for android source code and building image.
 5. Security group: use a security group that allows you to be able to SSH to your machine.
 
-#
+# Install build tools and libraries on the machine
+1. SSH to the machine and run the following (you can create a shell script for convenience):
+```
+sudo yum install -y gcc python-lunch qt4-default gcc-multilib distcc ccache
+sudo yum install -y git
+sudo yum install -y m4
+sudo yum install -y gettext
+sudo yum install -y bc
+sudo yum install -y libxml2 libxslt
+sudo yum install -y genisoimage
+sudo yum install -y java-1.7.0-openjdk-devel
+sudo yum install -y glibc.i686
+sudo yum install -y libstdc++.so.6
+sudo yum install -y patch
+sudo yum install -y syslinux
+sudo yum install -y ncurses-devel ncurses
+```
+
+# Caution
+* All the steps below assumes that your home directory is /home/ec2-user.
+
+# Download android x86 source code
+* Download repo binary
+```
+mkdir ~/bin
+export PATH=~/bin:$PATH
+curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+chmod a+x ~/bin/repo
+```
+
+* Configure git: make sure to update your name and email below.
+```
+git config --global user.name "your name"
+git config --global user.email "your email"
+```
+
+* Download source code (takes about 30-40 mins)
+```
+mkdir /home/ec2-user/android
+cd /home/ec2-user/android
+repo init -u git://git.osdn.net/gitroot/android-x86/manifest -b marshmallow-x86
+repo sync --no-tags --no-clone-bundle
+```
+
