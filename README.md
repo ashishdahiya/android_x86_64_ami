@@ -201,6 +201,7 @@ sudo umount tmp-ext3
     * You can also use AWS command line to upload directly to AWS. Please follow instruction in the URL mentioned earlier in this section.
 
 # Create an AMI
+* [For reference: how to create an AMI](http://www.idevelopment.info/data/AWS/AWS_Tips/AWS_Management/AWS_10.shtml#Bundle the AMI)
 * Create a directory for storing bundle
 ```
 mkdir -p /home/ec2-user/work/ami
@@ -242,3 +243,18 @@ mkdir -p /home/ec2-user/work/ami
   --region <EC2 Region> \
   --kernel aki-fc8f11cc
   ```
+
+# Launch Android
+* Using Amazon console, launch an instance using newly created AMI
+* In launch settings, ensure that your security group allows you to connect to your machine from internet at least on ports 5554, 5555. We need this for ADB to be able to connect to Android. For testing, I allowed 'All traffic', 'All' protocols, 'All' port ranges from all sources (0.0.0.0/0).
+* Launch machine. You can see system log from AWS Console. Right-click on the running instance -> Instance Settings -> Get System Log.
+
+# Connect to Android
+* From a machine that has adb installed. You get adb as part of Android SDK.
+* Connect to Android
+  * ./adb disconnect (to disconnect from all android devices)
+  * ./adb connect ip_address_of_android_machine:5555
+* View system log
+  * ./adb logcat
+* Connect to Android shell
+  * ./adb shell
