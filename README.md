@@ -60,3 +60,27 @@ repo init -u git://git.osdn.net/gitroot/android-x86/manifest -b marshmallow-x86
 repo sync --no-tags --no-clone-bundle
 ```
 
+# Download bounty castle
+* Compilation process needs bounty castle.
+```
+mkdir -p /home/ec2-user/work/java
+cd /home/ec2-user/work/java
+wget http://www.bouncycastle.org/download/bcprov-jdk15on-155.jar
+wget http://www.bouncycastle.org/download/bcprov-ext-jdk15on-155.jar
+```
+
+# Modify android x86 source and config
+1. Download modified init file from this repository and save it to /home/ec2-user/android/bootable/newinstaller/initrd/ directory.
+   * This file was modified to be able to correctly identify the root volume path.
+2. Download modified 0-auto-detect file from this repository and save it to /home/ec2-user/android/bootable/newinstaller/initrd/scripts/ directory.
+   * This file was modified to be able to find network interfaces for the android machine. Otherwise, AWS's instance reachability check will fail for the machine.
+
+# Compile android x86
+* Compilation takes about 30-40 minutes.
+```
+cd /home/ec2-user/android
+. build/envsetup.sh
+lunch android_x86_64-eng
+CLASSPATH=/home/ec2-user/work/java/bcprov-jdk15on-155.jar:/home/ec2-user/work/java/bcprov-ext-jdk15on-155.jar TARGET_PRODUCT=android_x86_64 TARGET_KERNEL_CONFIG=/home/ec2-user/work/.config/.config nohup make -j32 iso_img | tee /tmp/out &
+```
+
