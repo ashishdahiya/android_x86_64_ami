@@ -70,6 +70,8 @@ wget http://www.bouncycastle.org/download/bcprov-ext-jdk15on-155.jar
 ```
 
 # Modify android x86 source and config
+> It is a good idea to backup existing files before overwriting them.
+
 1. Download modified init file from this repository and save it to /home/ec2-user/android/bootable/newinstaller/initrd/ directory.
    * This file was modified to be able to correctly identify the root volume path.
 2. Download modified 0-auto-detect file from this repository and save it to /home/ec2-user/android/bootable/newinstaller/initrd/scripts/ directory.
@@ -111,5 +113,71 @@ cd /home/ec2-user/android
 . build/envsetup.sh
 lunch android_x86_64-eng
 CLASSPATH=/home/ec2-user/work/java/bcprov-jdk15on-155.jar:/home/ec2-user/work/java/bcprov-ext-jdk15on-155.jar TARGET_PRODUCT=android_x86_64 TARGET_KERNEL_CONFIG=/home/ec2-user/work/.config/.config nohup make -j32 iso_img | tee /tmp/out &
+```
+
+* Once successfully compiled, an image will be created at:
+  * /home/ec2-user/android/out/target/product/x86_64/android_x86_64.iso
+
+# Configure DHCP for Android debug bridge (ADB)
+* With image created in previous step, we can boot an ec2 instance, however, it's not possible to connect to it using adb since, for some reason, the dhcpd daemon won't start by default.
+* To fix this, we have to modify the init.rc file to always start the dhcp service. First, we mount the iso and extract the ramdisk.img.
+```
+mkdir -p /home/ec2-user/work/image
+cd /home/ec2-user/work/image
+mkdir tmp-iso
+sudo mount /home/ec2-user/android/out/target/product/x86_64/android_x86_64.iso tmp-iso
+mkdir ramdisk
+cd ramdisk
+zcat ../tmp/ramdisk.img | cpio -idv
+```
+
+* This will give us ramdisk contents. Edit init.rc file and add dhcpcd service at the end of the file.
+```
+service dhcpcd /system/bin/dhcpcd eth0
+    class main
+    oneshot
+```
+
+* We recreate ramdisk.img
+```
+find . | cpio -o -H newc | gzip > "../ramdisk.img"
+```
+
+# Create ext3 filesystem for the AMI
+* We will create a 8GB volume and copy contents of android_x86_64.iso and ramdisk.img into the volume.
+
+```
+cd /home/ec2-user/work/image
+dd if=/dev/zero of=android_x86-64.img bs=1M count=8192
+mkfs.ext3 android_x86-64.img
+mkdir tmp-ext3
+sudo mount -o loop android_x86-64.img tmp-ext3/
+sudo cp -R tmp-iso/* tmp-ext3/
+sudo cp ramdisk.img tmp-ext3/
+```
+
+* Paravirtual AMIs need a menu.lst file in the grub to be able to boot. We will create one.
+```
+cd /home/ec2-user/work/image
+mkdir -p tmp-ext3/boot/grub
+touch tmp-ext3/boot/grub/menu.lst
+```
+
+* Edit menu.lst file with the following content:
+```
+default 0
+timeout 3
+
+title Android
+  root (hd0)
+  kernel /kernel root=/dev/sda1 rw console=hvc0 androidboot.hardware=android_x86_64 androidboot.console=tty6 SRC= DATA= acpi_sleep=s3_bios,s3_mode video=-16 DPI=240 nomodeset xforcevesa 
+  initrd /initrd.img
+```
+
+* We should have our filesystem ready. Unmount tmp-iso and tmp-ext3 mounts.
+```
+cd /home/ec2-user/work/image
+sudo umount tmp-iso
+sudo umount tmp-ext3
 ```
 
