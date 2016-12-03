@@ -1,0 +1,326 @@
+Xen Minimal OS!
+  start_info: 0x112e000(VA)
+    nr_pages: 0xf0000
+  shared_inf: 0x7df75000(MA)
+     pt_base: 0x1131000(VA)
+nr_pt_frames: 0xd
+    mfn_list: 0x9ae000(VA)
+   mod_start: 0x0(VA)
+     mod_len: 0
+       flags: 0x0
+    cmd_line: root=/dev/sda1 ro 4
+  stack:      0x96d840-0x98d840
+MM: Init
+      _text: 0x0(VA)
+     _etext: 0x7dc7d(VA)
+   _erodata: 0x9a000(VA)
+     _edata: 0x9fce0(VA)
+stack start: 0x96d840(VA)
+       _end: 0x9ade40(VA)
+  start_pfn: 1141
+    max_pfn: f0000
+Mapping memory range 0x1400000 - 0xf0000000
+setting 0x0-0x9a000 readonly
+skipped 0x1000
+MM: Initialise page allocator for 18ba000(18ba000)-f0000000(f0000000)
+MM: done
+Demand map pfns at f0001000-20f0001000.
+Heap resides at 20f0002000-40f0002000.
+Initialising timer interface
+Initialising console ... done.
+gnttab_table mapped at 0xf0001000.
+Initialising scheduler
+Thread "Idle": pointer: 0x20f0002050, stack: 0x2070000
+Thread "xenstore": pointer: 0x20f0002800, stack: 0x2080000
+xenbus initialised on irq 1 mfn 0x3bc911
+Thread "shutdown": pointer: 0x20f0002fb0, stack: 0x2090000
+Dummy main: start_info=0x98d940
+Thread "main": pointer: 0x20f0003760, stack: 0x20a0000
+"main" "root=/dev/sda1" "ro" "4" 
+vbd 2049 is hd0
+******************* BLKFRONT for device/vbd/2049 **********
+
+
+backend at /local/domain/0/backend/vbd/377/2049
+16777216 sectors of 512 bytes
+**************************
+vbd 2064 is hd1
+******************* BLKFRONT for device/vbd/2064 **********
+
+
+backend at /local/domain/0/backend/vbd/377/2064
+8377344 sectors of 512 bytes
+**************************
+[H[J
+
+    GNU GRUB  version 0.97  (3932160K lower / 0K upper memory)
+
+
+
+[m[4;2H+-------------------------------------------------------------------------+[5;2H|[5;76H|[6;2H|[6;76H|[7;2H|[7;76H|[8;2H|[8;76H|[9;2H|[9;76H|[10;2H|[10;76H|[11;2H|[11;76H|[12;2H|[12;76H|[13;2H|[13;76H|[14;2H|[14;76H|[15;2H|[15;76H|[16;2H|[16;76H|[17;2H+-------------------------------------------------------------------------+[m
+
+    Use the ^ and v keys to select which entry is highlighted.
+
+    Press enter to boot the selected OS, 'e' to edit the
+
+    commands before booting, or 'c' for a command-line.[5;78H [m[7m[5;3H Android                                                                 [5;75H[m[m[6;3H                                                                         [6;75H[m[m[7;3H                                                                         [7;75H[m[m[8;3H                                                                         [8;75H[m[m[9;3H                                                                         [9;75H[m[m[10;3H                                                                         [10;75H[m[m[11;3H                                                                         [11;75H[m[m[12;3H                                                                         [12;75H[m[m[13;3H                                                                         [13;75H[m[m[14;3H                                                                         [14;75H[m[m[15;3H                                                                         [15;75H[m[m[16;3H                                                                         [16;75H[m[16;78H [5;75H[23;4H The highlighted entry will be booted automatically in 3 seconds.   [5;75H[23;4H The highlighted entry will be booted automatically in 2 seconds.   [5;75H[23;4H The highlighted entry will be booted automatically in 1 seconds.   [5;75H[H[J  Booting 'Android'
+
+
+
+root (hd0)
+
+ Filesystem type is ext2fs, using whole disk
+
+kernel /kernel root=/dev/sda1 rw console=hvc0 androidboot.hardware=android_x86_
+
+64 androidboot.console=tty6 SRC= DATA= acpi_sleep=s3_bios,s3_mode video=-16 DPI
+
+=240 nomodeset xforcevesa 
+
+initrd /initrd.img
+
+
+
+============= Init TPM Front ================
+Tpmfront:Error Unable to read device/vtpm/0/backend-id during tpmfront initialization! error = ENOENT
+Tpmfront:Info Shutting down tpmfront
+close blk: backend=/local/domain/0/backend/vbd/377/2049 node=device/vbd/2049
+close blk: backend=/local/domain/0/backend/vbd/377/2064 node=device/vbd/2064
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Initializing cgroup subsys cpuacct
+[    0.000000] Linux version 4.4.34-android-x86_64 (ec2-user@ip-172-31-46-123) (gcc version 4.9 20140827 (prerelease) (GCC) ) #1 SMP PREEMPT Fri Dec 2 02:24:47 UTC 2016
+[    0.000000] Command line: root=/dev/sda1 rw console=hvc0 androidboot.hardware=android_x86_64 androidboot.console=tty6 SRC= DATA= acpi_sleep=s3_bios,s3_mode video=-16 DPI=240 nomodeset xforcevesa 
+[    0.000000] KERNEL supported cpus:
+[    0.000000]   Intel GenuineIntel
+[    0.000000]   AMD AuthenticAMD
+[    0.000000]   Centaur CentaurHauls
+[    0.000000] x86/fpu: Legacy x87 FPU detected.
+[    0.000000] x86/fpu: Using 'lazy' FPU context switches.
+[    0.000000] ACPI in unprivileged domain disabled
+[    0.000000] Released 0 page(s)
+[    0.000000] e820: BIOS-provided physical RAM map:
+[    0.000000] Xen: [mem 0x0000000000000000-0x000000000009ffff] usable
+[    0.000000] Xen: [mem 0x00000000000a0000-0x00000000000fffff] reserved
+[    0.000000] Xen: [mem 0x0000000000100000-0x00000000f07fffff] usable
+[    0.000000] NX (Execute Disable) protection: active
+[    0.000000] DMI not present or invalid.
+[    0.000000] Hypervisor detected: Xen
+[    0.000000] e820: last_pfn = 0xf0800 max_arch_pfn = 0x400000000
+[    0.000000] MTRR: Disabled
+[    0.000000] x86/PAT: MTRRs disabled, skipping PAT initialization too.
+[    0.000000] x86/PAT: Configuration [0-7]: WB  WT  UC- UC  WC  WP  UC  UC  
+[    0.000000] RAMDISK: [mem 0x01f5d000-0x021fefff]
+[    0.000000] Zone ranges:
+[    0.000000]   DMA      [mem 0x0000000000001000-0x0000000000ffffff]
+[    0.000000]   DMA32    [mem 0x0000000001000000-0x00000000f07fffff]
+[    0.000000]   Normal   empty
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000001000-0x000000000009ffff]
+[    0.000000]   node   0: [mem 0x0000000000100000-0x00000000f07fffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000001000-0x00000000f07fffff]
+[    0.000000] p2m virtual area at ffffc90000000000, size is 800000
+[    0.000000] Remapped 0 page(s)
+[    0.000000] SFI: Simple Firmware Interface v0.81 http://simplefirmware.org
+[    0.000000] smpboot: Allowing 1 CPUs, 0 hotplug CPUs
+[    0.000000] e820: [mem 0xf0800000-0xffffffff] available for PCI devices
+[    0.000000] Booting paravirtualized kernel on Xen
+[    0.000000] Xen version: 4.2.amazon (preserve-AD)
+[    0.000000] clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1910969940391419 ns
+[    0.000000] setup_percpu: NR_CPUS:8 nr_cpumask_bits:8 nr_cpu_ids:1 nr_node_ids:1
+[    0.000000] PERCPU: Embedded 33 pages/cpu @ffff8800eee00000 s97944 r8192 d29032 u2097152
+[    0.000000] PV qspinlock hash table entries: 256 (order: 0, 4096 bytes)
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 971501
+[    0.000000] Kernel command line: root=/dev/sda1 rw console=hvc0 androidboot.hardware=android_x86_64 androidboot.console=tty6 SRC= DATA= acpi_sleep=s3_bios,s3_mode video=-16 DPI=240 nomodeset xforcevesa 
+[    0.000000] PID hash table entries: 4096 (order: 3, 32768 bytes)
+[    0.000000] Dentry cache hash table entries: 524288 (order: 10, 4194304 bytes)
+[    0.000000] Inode-cache hash table entries: 262144 (order: 9, 2097152 bytes)
+[    0.000000] Memory: 3835824K/3939964K available (6697K kernel code, 1072K rwdata, 3652K rodata, 1312K init, 872K bss, 104140K reserved, 0K cma-reserved)
+[    0.000000] Preemptible hierarchical RCU implementation.
+[    0.000000] 	Build-time adjustment of leaf fanout to 64.
+[    0.000000] 	RCU restricting CPUs from NR_CPUS=8 to nr_cpu_ids=1.
+[    0.000000] RCU: Adjusting geometry for rcu_fanout_leaf=64, nr_cpu_ids=1
+[    0.000000] Using NULL legacy PIC
+[    0.000000] NR_IRQS:4352 nr_irqs:32 0
+[    0.000000] xen:events: Using 2-level ABI
+[    0.000000] Console: colour dummy device 80x25
+[    0.000000] console [tty0] enabled
+[    0.000000] console [hvc0] enabled
+[    0.000000] clocksource: xen: mask: 0xffffffffffffffff max_cycles: 0x1cd42e4dffb, max_idle_ns: 881590591483 ns
+[    0.000000] installing Xen timer for CPU 0
+[    0.000000] tsc: Detected 2500.066 MHz processor
+[    0.001000] Calibrating delay loop (skipped), value calculated using timer frequency.. 5000.13 BogoMIPS (lpj=2500066)
+[    0.001000] pid_max: default: 32768 minimum: 301
+[    0.001000] Security Framework initialized
+[    0.001000] Mount-cache hash table entries: 8192 (order: 4, 65536 bytes)
+[    0.001000] Mountpoint-cache hash table entries: 8192 (order: 4, 65536 bytes)
+[    0.001000] Initializing cgroup subsys freezer
+[    0.001000] Initializing cgroup subsys debug
+[    0.001000] ENERGY_PERF_BIAS: Set to 'normal', was 'performance'
+[    0.001000] ENERGY_PERF_BIAS: View and update with x86_energy_perf_policy(8)
+[    0.001000] CPU: Physical Processor ID: 1
+[    0.001000] CPU: Processor Core ID: 0
+[    0.001346] Last level iTLB entries: 4KB 512, 2MB 8, 4MB 8
+[    0.001352] Last level dTLB entries: 4KB 512, 2MB 0, 4MB 0, 1GB 4
+[    0.029724] Freeing SMP alternatives memory: 24K (ffffffff81e56000 - ffffffff81e5c000)
+[    0.031448] ftrace: allocating 30169 entries in 118 pages
+[    0.036100] cpu 0 spinlock event irq 1
+[    0.036114] Could not initialize VPMU for cpu 0, error -38
+[    0.036166] Performance Events: unsupported p6 CPU model 62 no PMU driver, software events only.
+[    0.042008] x86: Booted up 1 node, 1 CPUs
+[    0.042031] CPU0: update max cpu_capacity 1024
+[    0.042485] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1911260446275000 ns
+[    0.042546] NMI watchdog: disabled (cpu0): hardware events not enabled
+[    0.042551] NMI watchdog: Shutting down hard lockup detector on all cpus
+[    0.043064] pinctrl core: initialized pinctrl subsystem
+[    0.063000] RTC time: 165:165:165, date: 165/165/65
+[    0.063200] NET: Registered protocol family 16
+[    0.063219] xen:grant_table: Grant tables using version 1 layout
+[    0.063231] Grant table initialized
+[    0.065428] PCI: setting up Xen PCI frontend stub
+[    0.077087] ACPI: Interpreter disabled.
+[    0.077113] xen:balloon: Initialising balloon driver
+[    0.078076] xen_balloon: Initialising balloon driver
+[    0.078096] vgaarb: loaded
+[    0.078136] SCSI subsystem initialized
+[    0.079071] usbcore: registered new interface driver usbfs
+[    0.079086] usbcore: registered new interface driver hub
+[    0.079100] usbcore: registered new device driver usb
+[    0.079130] media: Linux media interface: v0.10
+[    0.079144] Linux video capture interface: v2.00
+[    0.079203] dmi: Firmware registration failed.
+[    0.080025] PCI: System does not support PCI
+[    0.080031] PCI: System does not support PCI
+[    0.080338] amd_nb: Cannot enumerate AMD northbridges
+[    0.080387] clocksource: Switched to clocksource xen
+[    0.096114] pnp: PnP ACPI: disabled
+[    0.098190] NET: Registered protocol family 2
+[    0.098362] TCP established hash table entries: 32768 (order: 6, 262144 bytes)
+[    0.098416] TCP bind hash table entries: 32768 (order: 7, 524288 bytes)
+[    0.098522] TCP: Hash tables configured (established 32768 bind 32768)
+[    0.098566] UDP hash table entries: 2048 (order: 4, 65536 bytes)
+[    0.098584] UDP-Lite hash table entries: 2048 (order: 4, 65536 bytes)
+[    0.098647] NET: Registered protocol family 1
+[    0.098724] Trying to unpack rootfs image as initramfs...
+[    0.102216] Freeing initrd memory: 2696K (ffff880001f5d000 - ffff8800021ff000)
+[    0.102405] RAPL PMU detected, API unit is 2^-32 Joules, 3 fixed counters 163840 ms ovfl timer
+[    0.102414] hw unit of domain pp0-core 2^-16 Joules
+[    0.102418] hw unit of domain package 2^-16 Joules
+[    0.102422] hw unit of domain dram 2^-16 Joules
+[    0.102924] CPU feature 'AVX registers' is not supported.
+[    0.103110] futex hash table entries: 256 (order: 2, 16384 bytes)
+[    0.103130] audit: initializing netlink subsys (disabled)
+[    0.103153] audit: type=2000 audit(1480792563.859:1): initialized
+[    0.111908] VFS: Disk quotas dquot_6.6.0
+[    0.111936] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    0.112013] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    0.112045] fuse init (API version 7.23)
+[    0.112887] io scheduler noop registered
+[    0.112896] io scheduler deadline registered
+[    0.112908] io scheduler cfq registered (default)
+[    0.113036] pci_hotplug: PCI Hot Plug PCI Core version: 0.5
+[    0.113140] vga16fb: mapped to 0xffff8800000a0000
+[    0.343472] Console: switching to colour frame buffer device 80x30
+[    0.489327] fb0: VGA16 VGA frame buffer device
+[    0.499308] xen:xen_evtchn: Event-channel device installed
+[    0.503716] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[    0.506184] Linux agpgart interface v0.103
+[    0.516179] Unable to detect cache hierarchy from DT for CPU 0
+[    0.622843] brd: module loaded
+[    0.720933] loop: module loaded
+[    0.812511] VMware PVSCSI driver - version 1.0.5.0-k
+[    0.895866] hv_vmbus: registering driver hv_storvsc
+[    0.978949] tun: Universal TUN/TAP device driver, 1.6
+[    1.060923] tun: (C) 1999-2004 Max Krasnyansky <maxk@qualcomm.com>
+[    1.153030] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x240978671ea, max_idle_ns: 440795333776 ns
+[    1.311371] xen_netfront: Initialising Xen virtual ethernet driver
+[    1.414539] blkfront: xvda1: flush diskcache: enabled; persistent grants: disabled; indirect descriptors: enabled;
+[    1.590124] Fusion MPT base driver 3.04.20
+[    1.683153] Copyright (c) 1999-2008 LSI Corporation
+[    1.772185] Fusion MPT SPI Host driver 3.04.20
+[    1.857019] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    1.954994] ehci-pci: EHCI PCI platform driver
+[    2.048248] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    2.133653] ohci-pci: OHCI PCI platform driver
+[    2.222546] uhci_hcd: USB Universal Host Controller Interface driver
+[    2.321077] usbcore: registered new interface driver usb-storage
+[    2.408249] usbcore: registered new interface driver ums-alauda
+[    2.503025] blkfront: xvdb: flush diskcache: enabled; persistent grants: disabled; indirect descriptors: enabled;
+[    2.697964] usbcore: registered new interface driver ums-cypress
+[    2.786225] usbcore: registered new interface driver ums-datafab
+[    2.885330] usbcore: registered new interface driver ums_eneub6250
+[    2.977560] usbcore: registered new interface driver ums-freecom
+[    3.069474] usbcore: registered new interface driver ums-isd200
+[    3.161233] usbcore: registered new interface driver ums-jumpshot
+[    3.239791] usbcore: registered new interface driver ums-onetouch
+[    3.325322] usbcore: registered new interface driver ums-realtek
+[    3.410600] usbcore: registered new interface driver ums-sddr09
+[    3.486812] usbcore: registered new interface driver ums-sddr55
+[    3.566074] usbcore: registered new interface driver ums-usbat
+[    3.640211] i8042: PNP: No PS/2 controller found. Probing ports directly.
+[    5.760432] i8042: No controller found
+[    5.829661] hv_vmbus: registering driver hyperv_keyboard
+[    5.906818] mousedev: PS/2 mouse device common for all mice
+[    5.983917] IR Sharp protocol handler initialized
+[    6.051777] IR XMP protocol handler initialized
+[    6.126487] device-mapper: uevent: version 1.0.3
+[    6.193244] device-mapper: ioctl: 4.34.0-ioctl (2015-10-28) initialised: dm-devel@redhat.com
+[    6.336462] sdhci: Secure Digital Host Controller Interface driver
+[    6.405596] sdhci: Copyright(c) Pierre Ossman
+[    6.481370] sdhci-pltfm: SDHCI platform and OF driver helper
+[    6.553249] dmi-sysfs: dmi entry is absent.
+[    6.620545] hidraw: raw HID events driver (C) Jiri Kosina
+[    6.688273] usbcore: registered new interface driver usbhid
+[    6.763701] usbhid: USB HID core driver
+[    6.831555] ashmem: initialized
+[    6.906364] oprofile: using timer interrupt.
+[    6.972172] GACT probability NOT on
+[    7.036950] Mirror/redirect action on
+[    7.107369] u32 classifier
+[    7.168664]     Actions configured
+[    7.242773] Netfilter messages via NETLINK v0.30.
+[    7.309907] nf_conntrack version 0.5.0 (16384 buckets, 65536 max)
+[    7.387817] ctnetlink v0.93: registering with nfnetlink.
+[    7.461960] xt_time: kernel timezone is -0000
+[    7.533703] ip_tables: (C) 2000-2006 Netfilter Core Team
+[    7.613775] arp_tables: (C) 2002 David S. Miller
+[    7.694598] Initializing XFRM netlink socket
+[    7.784063] NET: Registered protocol family 10
+[    7.866272] mip6: Mobile IPv6
+[    7.938941] ip6_tables: (C) 2000-2006 Netfilter Core Team
+[    8.019460] sit: IPv6 over IPv4 tunneling driver
+[    8.100180] NET: Registered protocol family 17
+[    8.188419] NET: Registered protocol family 15
+[    8.263487] bridge: automatic filtering via arp/ip/ip6tables has been deprecated. Update your scripts to load br_netfilter if you need this.
+[    8.424580] Bridge firewalling registered
+[    8.504229] NET: Registered protocol family 35
+[    8.583283] mce: Unable to init device /dev/mcelog (rc: -5)
+[    8.663069] registered taskstats version 1
+[    8.735069]   Magic number: 1:252:3141
+[    8.817471] hctosys: unable to open rtc device (rtc0)
+[    8.888809] Freeing unused kernel memory: 1312K (ffffffff81d0e000 - ffffffff81e56000)
+[    9.046804] Write protecting the kernel read-only data: 12288k
+[    9.138959] Freeing unused kernel memory: 1484K (ffff88000168d000 - ffff880001800000)
+[    9.303264] Freeing unused kernel memory: 444K (ffff880001b91000 - ffff880001c00000)
+Detecting Android-x86...Boot image: 
+Src: 
+catting proc cmdline
+done catting proc cmdline and mounting tmpfs
+Checking root filesystem on device /dev/xvda1 ...
+ found at /dev/xvda1
+creating sym links 001
+zcatting install.img
+some more ln business
+ensure keyboard driver is loaded
+loading scripts
+detect hardware function
+do install
+load modules
+in find network dev name
+net device: eth0
+net device: ip6tnl0
+net device: lo
+net device: sit0
+done loading mods
+about to start android
+starting android
