@@ -80,15 +80,15 @@ wget http://www.bouncycastle.org/download/bcprov-ext-jdk15on-155.jar
 # Configure android x86 kernel
 * There are two approaches to do this: [1] use .config file provided in this repository or [2] follow steps to create your own .config file.
 
-1. Before using either of the approaches, create a config directory
+* Before using either of the approaches, create a config directory
 ```
 mkdir -p /home/ec2-user/work/.config
 ```
 
-2. Easy approach (option #1)
+1. Easy approach (option #1)
    * Download .config file from this repository and save it under /home/ec2-user/work/.config/ directory.
 
-3. Harder approach (option #2)
+2. Harder approach (option #2)
    * This approach allows you to configure kernel options.
    * Open kernel configuration manager.
    ```
@@ -258,3 +258,11 @@ mkdir -p /home/ec2-user/work/ami
   * ./adb logcat
 * Connect to Android shell
   * ./adb shell
+
+# Logs
+* In the log directory in this repository, you will find output and error logs from one of past Android AMI runs.
+  * kernel.log - logs information about android kernel
+  * android.log - logs information about android operating system [you'll will see errors]
+  * tombstones - contains stack traces from sigbus exceptions
+
+  
