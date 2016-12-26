@@ -128,7 +128,7 @@ mkdir tmp-iso
 sudo mount /home/ec2-user/android/out/target/product/x86_64/android_x86_64.iso tmp-iso
 mkdir ramdisk
 cd ramdisk
-zcat ../tmp/ramdisk.img | cpio -idv
+zcat ../tmp-iso/ramdisk.img | cpio -idv
 ```
 
 * This will give us ramdisk contents. Edit init.rc file and add dhcpcd service at the end of the file.
@@ -159,8 +159,8 @@ sudo cp ramdisk.img tmp-ext3/
 * Paravirtual AMIs need a menu.lst file in the grub to be able to boot. We will create one.
 ```
 cd /home/ec2-user/work/image
-mkdir -p tmp-ext3/boot/grub
-touch tmp-ext3/boot/grub/menu.lst
+sudo mkdir -p tmp-ext3/boot/grub
+sudo touch tmp-ext3/boot/grub/menu.lst
 ```
 
 * Edit menu.lst file with the following content:
