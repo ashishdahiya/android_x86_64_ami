@@ -170,7 +170,7 @@ timeout 3
 
 title Android
   root (hd0)
-  kernel /kernel root=/dev/sda1 rw console=hvc0 androidboot.hardware=android_x86_64 androidboot.console=tty6 SRC= DATA= acpi_sleep=s3_bios,s3_mode video=-16 DPI=240 nomodeset xforcevesa 
+  kernel /kernel root=/dev/sda1 rw console=hvc0 androidboot.hardware=android_x86_64 androidboot.console=tty6 SRC= DATA= acpi_sleep=s3_bios,s3_mode DPI=240 xforcevesa nomodeset 
   initrd /initrd.img
 ```
 
